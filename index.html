@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissor</title>
+    <script src="vue.js"></script>
+    <link rel="stylesheet" href="tailwind.min.css">
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #app {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            background-color: rgb(250, 250, 16);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="flex flex-col justify-evenly items-center">
+        <div class="h-32 w-32 m-3">
+            <p class="text-white text-center text-3xl font-black">Score:{{computerPoints}}</p>
+            <img :src="computerImage" class="object-cover w-full h-full object-center">
+            <p class="text-white text-center text-3xl font-black">Computer</p>
+        </div>
+
+        <div class="h-32 w-32 m-3">
+            <p class="text-white text-center text-3xl font-black">Score:{{playerPoints}}</p>
+            <img :src="playerImage" class="object-cover w-full h-full object-center">
+            <p class="text-white text-center text-3xl font-black">Player</p>
+        </div>
+        <div class="flex flex-row  w-full justify-evenly">
+            <button v-on:click="populateSprite(0)"
+                class="m-1 w-1/3 shadow-inner py-2 bg-white font-bold text-md rounded-lg">Rock</button>
+            <button v-on:click="populateSprite(1)"
+                class="m-1 w-1/3 shadow-inner py-2 bg-white font-bold text-md rounded-lg">Paper</button>
+            <button v-on:click="populateSprite(2)"
+                class="m-1 w-1/3 shadow-inner py-2 bg-white font-bold text-md rounded-lg">Scissors</button>
+        </div>
+    </div>
+
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                playerImage: './RPS/default.png',
+                computerImage: './RPS/default.png',
+                computerPoints: 0,
+                playerPoints: 0,
+                imageList: ['./RPS/rock.png', './RPS/paper.png', './RPS/scissors.png']
+            },
+            methods: {
+                populateSprite: function (player) {
+                    var c = Math.floor(Math.random() * 3);
+                    var p = player;
+                    this.computerImage = this.imageList[c];
+                    this.playerImage = this.imageList[p];
+                    this.evalResult(c, p);
+                },
+                evalResult: function (c, p) {
+                    if (c === p) {
+                        return console.log("Tie");
+                    }
+                    if (c > p) {
+                        if (c === 2 && p === 0) {
+                            this.playerPoints++
+                        }
+                        else {
+                            this.computerPoints++
+                        }
+                    }
+                    else {
+                        if (c === 0 && p === 2) {
+                            this.computerPoints++
+                        }
+                        else {
+                            this.playerPoints++
+                        }
+                    }
+                }
+            },
+            beforeUpdate() {
+                if(this.computerPoints === 10){
+                    alert("Computer Wins");
+                    this.computerPoints = 0;
+                    this.playerPoints = 0;
+                }
+                else if(this.playerPoints === 10){
+                    alert("Player Wins");
+                    this.computerPoints = 0;
+                    this.playerPoints = 0;
+                }
+                else if(this.computerPoints === 10 && this.playerPoints === 10){
+                    alert("It's a Tie");
+                    this.computerPoints = 0;
+                    this.playerPoints = 0;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
