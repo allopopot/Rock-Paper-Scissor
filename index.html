@@ -20,6 +20,8 @@
             left: 0px;
             top: 0px;
             overflow: hidden;
+            transition: all;
+            transition-duration: .5s;
         }
 
     </style>
@@ -45,10 +47,10 @@
             <div class="w-16 h-16 bg-white p-2 shadow-lg rounded-md m-2 hover:shadow-2xl" v-on:click="populateSprite(0)">
                 <img :src="imageList[0]">
             </div>
-            <div class="w-16 h-16 bg-white p-2 shadow-lg rounded-lg m-2" v-on:click="populateSprite(1)">
+            <div class="w-16 h-16 bg-white p-2 shadow-lg rounded-lg m-2 hover:shadow-2xl" v-on:click="populateSprite(1)">
                 <img :src="imageList[1]">
             </div>
-            <div class="w-16 h-16 bg-white p-2 shadow-lg rounded-lg m-2" v-on:click="populateSprite(2)">
+            <div class="w-16 h-16 bg-white p-2 shadow-lg rounded-lg m-2 hover:shadow-2xl" v-on:click="populateSprite(2)">
                 <img :src="imageList[2]">
             </div>
         </div>
